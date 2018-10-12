@@ -1,17 +1,15 @@
 apply plugin: 'com.android.application'
-apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'pmd'
 apply plugin: 'findbugs'
 apply plugin: 'checkstyle'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
-
+    compileSdkVersion 27
+    buildToolsVersion '28.0.3'
     defaultConfig {
-        applicationId "io.blackbox_vision.materialcalendarview.sample"
-        minSdkVersion 11
-        targetSdkVersion 25
+        applicationId 'leeboonkong.materialcalendarview.leeboonkong.materialcalendarview.sample'
+        minSdkVersion 14
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
     }
@@ -32,23 +30,19 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    productFlavors {
+    }
 }
 
-retrolambda {
-    jvmArgs "-noverify"
-}
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-
-    compile 'com.android.support:appcompat-v7:25.1.0'
-    compile 'com.android.support:design:25.1.0'
-    compile 'com.jakewharton:butterknife:8.4.0'
-
-    compile project(':materialcalendarview')
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.jakewharton:butterknife:8.4.0'
+    implementation project(':materialcalendarview')
 }
 
 task findbugs(type: FindBugs) {

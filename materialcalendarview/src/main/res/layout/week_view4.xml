@@ -16,7 +16,7 @@
         android:layout_weight="1"
         android:tag="dayOfMonthContainer22">
 
-        <io.blackbox_vision.materialcalendarview.view.DayView
+        <com.leeboonkong.materialcalendarview.view.DayView
             style="@style/CalendarView.DayOfTheMonth"
             android:layout_centerInParent="true"
             android:tag="dayOfMonthText22"
@@ -31,7 +31,7 @@
         android:layout_weight="1"
         android:tag="dayOfMonthContainer23">
 
-        <io.blackbox_vision.materialcalendarview.view.DayView
+        <com.leeboonkong.materialcalendarview.view.DayView
             style="@style/CalendarView.DayOfTheMonth"
             android:layout_centerInParent="true"
             android:tag="dayOfMonthText23"
@@ -46,7 +46,7 @@
         android:layout_weight="1"
         android:tag="dayOfMonthContainer24">
 
-        <io.blackbox_vision.materialcalendarview.view.DayView
+        <com.leeboonkong.materialcalendarview.view.DayView
             style="@style/CalendarView.DayOfTheMonth"
             android:layout_centerInParent="true"
             android:tag="dayOfMonthText24"
@@ -61,7 +61,7 @@
         android:layout_weight="1"
         android:tag="dayOfMonthContainer25">
 
-        <io.blackbox_vision.materialcalendarview.view.DayView
+        <com.leeboonkong.materialcalendarview.view.DayView
             style="@style/CalendarView.DayOfTheMonth"
             android:layout_centerInParent="true"
             android:tag="dayOfMonthText25"
@@ -76,7 +76,7 @@
         android:layout_weight="1"
         android:tag="dayOfMonthContainer26">
 
-        <io.blackbox_vision.materialcalendarview.view.DayView
+        <com.leeboonkong.materialcalendarview.view.DayView
             style="@style/CalendarView.DayOfTheMonth"
             android:layout_centerInParent="true"
             android:tag="dayOfMonthText26"
@@ -91,7 +91,7 @@
         android:layout_weight="1"
         android:tag="dayOfMonthContainer27">
 
-        <io.blackbox_vision.materialcalendarview.view.DayView
+        <com.leeboonkong.materialcalendarview.view.DayView
             style="@style/CalendarView.DayOfTheMonth"
             android:layout_centerInParent="true"
             android:tag="dayOfMonthText27"
@@ -106,7 +106,7 @@
         android:layout_weight="1"
         android:tag="dayOfMonthContainer28">
 
-        <io.blackbox_vision.materialcalendarview.view.DayView
+        <com.leeboonkong.materialcalendarview.view.DayView
             style="@style/CalendarView.DayOfTheMonth"
             android:layout_centerInParent="true"
             android:tag="dayOfMonthText28"

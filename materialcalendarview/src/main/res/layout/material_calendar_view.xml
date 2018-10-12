@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <io.blackbox_vision.materialcalendarview.view.HeaderView
+    <com.leeboonkong.materialcalendarview.view.HeaderView
         android:id="@+id/header_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

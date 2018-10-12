@@ -75,18 +75,18 @@ libraryDependencies += "com.github.BlackBoxVision" % "material-calendar-view" % 
 In your layout.xml file:
 
 ```xml
-<io.blackbox_vision.materialcalendarview.view.CalendarView
+<com.leeboonkong.materialcalendarview.view.CalendarView
 	android:id="@+id/calendar_view"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:background="@color/colorPrimary">
-</io.blackbox_vision.materialcalendarview.view.CalendarView>
+</com.leeboonkong.materialcalendarview.view.CalendarView>
 ```
 
 This example shows all the possible customization around Material Calendar View:
 
 ```xml
-<io.blackbox_vision.materialcalendarview.view.CalendarView
+<com.leeboonkong.materialcalendarview.view.CalendarView
 	android:id="@+id/calendar_view"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
@@ -106,7 +106,7 @@ This example shows all the possible customization around Material Calendar View:
 	app:calendarWeekendTextColor="@color/colorAccent"
 	app:calendarButtonBackgroundColor="@color/colorAccent"
 	app:calendarWeekendDays="saturday|sunday">
-</io.blackbox_vision.materialcalendarview.view.CalendarView>
+</com.leeboonkong.materialcalendarview.view.CalendarView>
 ```
 Then, in your Activity.java or Fragment.java initialize the calendar: 
 
