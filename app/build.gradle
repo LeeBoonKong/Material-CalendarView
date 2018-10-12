@@ -40,13 +40,13 @@ retrolambda {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile 'com.android.support:appcompat-v7:25.1.0'
-    compile 'com.android.support:design:25.1.0'
-    compile 'com.jakewharton:butterknife:8.4.0'
-    compile project(':materialcalendarview')
+    implementation 'com.android.support:appcompat-v7:25.1.0'
+    implementation 'com.android.support:design:25.1.0'
+    implementation 'com.jakewharton:butterknife:8.4.0'
+    implementation project(':materialcalendarview')
 }
 
 task findbugs(type: FindBugs) {
