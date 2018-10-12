@@ -1,11 +1,12 @@
 apply plugin: 'com.android.library'
+apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'pmd'
 apply plugin: 'findbugs'
 apply plugin: 'checkstyle'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '28.0.2'
+    buildToolsVersion '25.0.2'
 
     defaultConfig {
         minSdkVersion 11
@@ -33,6 +34,9 @@ android {
     }
 }
 
+retrolambda {
+    jvmArgs "-noverify"
+}
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
