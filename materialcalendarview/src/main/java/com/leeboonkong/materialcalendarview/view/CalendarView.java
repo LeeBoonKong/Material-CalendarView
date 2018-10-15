@@ -697,7 +697,7 @@ public final class CalendarView extends LinearLayout {
         if (CalendarUtils.isToday(calendar)) {
             final com.leeboonkong.materialcalendarview.view.DayView dayOfMonth = findViewByCalendar(calendar);
 
-            dayOfMonth.setTextColor(dayOfMonthTextColor);
+            dayOfMonth.setTextColor(currentDayTextColor);
 
             Drawable d = ContextCompat.getDrawable(getContext(), R.drawable.circular_background);
             d.setColorFilter(currentDayBackgroundColor, PorterDuff.Mode.SRC_ATOP);
