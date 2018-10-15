@@ -614,7 +614,7 @@ public final class CalendarView extends LinearLayout {
             calendar.setFirstDayOfWeek(firstDayOfWeek);
             calendar.setTime(currentDate);
 
-            com.leeboonkong.materialcalendarview.view.DayView dayView = findViewByCalendar(calendar);
+            DayView dayView = findViewByCalendar(calendar);
             dayView.setBackgroundColor(calendarBackgroundColor);
             isCommonDay = !CalendarUtils.isToday(calendar);
 
@@ -626,6 +626,9 @@ public final class CalendarView extends LinearLayout {
                     }
                 }
             }
+
+            //Draw the current day after trying to clear everything
+            drawCurrentDay(currentDate);
 
             if (isCommonDay) {
                 dayView.setTextColor(dayOfMonthTextColor);
@@ -734,7 +737,7 @@ public final class CalendarView extends LinearLayout {
         setLastSelectedDay(date);
 
         // Mark current day as selected
-        com.leeboonkong.materialcalendarview.view.DayView view = findViewByCalendar(currentCalendar);
+        DayView view = findViewByCalendar(currentCalendar);
 
         Drawable d = ContextCompat.getDrawable(getContext(), R.drawable.circular_background);
         d.setColorFilter(selectedDayBackgroundColor, PorterDuff.Mode.SRC_ATOP);
@@ -783,8 +786,6 @@ public final class CalendarView extends LinearLayout {
         c.setTime(calendar.getTime());
         c.set(Calendar.DAY_OF_MONTH, Integer.valueOf(dayOfMonthText.getText().toString()));
 
-        //Set the current day color
-        drawCurrentDay(c.getTime());
 
         if (onDateClickListener != null) {
             if (disabledDate != null) {
@@ -796,6 +797,10 @@ public final class CalendarView extends LinearLayout {
                 markDateAsSelected(c.getTime());
                 onDateClickListener.onDateClick(c.getTime());
             }
+        } else {
+            //Since markDateAsSelected will call cleardayviewselection
+            //Set the current day color
+            drawCurrentDay(c.getTime());
         }
     }
 
