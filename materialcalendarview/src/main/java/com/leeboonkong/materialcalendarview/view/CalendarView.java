@@ -627,14 +627,14 @@ public final class CalendarView extends LinearLayout {
                 }
             }
 
-            //Draw the current day after trying to clear everything
-            drawCurrentDay(currentDate);
-
             if (isCommonDay) {
                 dayView.setTextColor(dayOfMonthTextColor);
             } else {
                 dayView.setTextColor(weekendTextColor);
             }
+
+            //Draw the current day after trying to clear everything
+            drawCurrentDay(currentDate);
         }
     }
 
