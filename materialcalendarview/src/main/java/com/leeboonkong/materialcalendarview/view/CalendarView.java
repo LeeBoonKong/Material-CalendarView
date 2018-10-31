@@ -582,17 +582,18 @@ public final class CalendarView extends LinearLayout {
                 if (isCommonDay) {
                     textView.setTextColor(dayOfMonthTextColor);
                 }
-
-                if (day.isCurrentDay()) {
-                    drawCurrentDay(new Date(System.currentTimeMillis()));
-                }
-
+                
                 if (disabledDay.getDay() != -121) {
                     if (day.compareTo(disabledDay) < 1) {
                         textView.setTextColor(disabledDayTextColor);
                         textView.setBackgroundColor(calendarBackgroundColor);
                     }
                 }
+
+                if (day.isCurrentDay()) {
+                    drawCurrentDay(new Date(System.currentTimeMillis()));
+                }
+
 
             } else {
                 if (!isOverflowDateVisible) {
