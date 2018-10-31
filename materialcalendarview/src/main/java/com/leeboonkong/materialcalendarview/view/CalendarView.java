@@ -629,12 +629,16 @@ public final class CalendarView extends LinearLayout {
 
             if (isCommonDay) {
                 dayView.setTextColor(dayOfMonthTextColor);
-            } else {
-                dayView.setTextColor(weekendTextColor);
-            }
+            } else if (currentMonthIndex == 0) {
+                //A weird bug that draws the current position of current day regardless which month
+                //you are in
 
-            //Draw the current day after trying to clear everything
-            drawCurrentDay(currentDate);
+                //I don't know why this exist but I'll leave it here for now
+                //dayView.setTextColor(weekendTextColor);
+
+                //Draw the current day after trying to clear everything
+                drawCurrentDay(currentDate);
+            }
         }
     }
 
