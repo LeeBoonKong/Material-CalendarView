@@ -18,7 +18,9 @@ import com.leeboonkong.materialcalendarview.sample.logic.presenter.MainPresenter
 import com.leeboonkong.materialcalendarview.sample.logic.presenter_view.MainView;
 import com.leeboonkong.materialcalendarview.view.CalendarView;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -95,7 +97,10 @@ public final class MainActivity extends AppCompatActivity implements MainView {
                 .setOnDateClickListener(this::onDateClick)
                 .setOnMonthChangeListener(this::onMonthChange)
                 .setOnDateLongClickListener(this::onDateLongClick)
-                .setOnMonthTitleClickListener(this::onMonthTitleClick);
+                .setOnMonthTitleClickListener(this::onMonthTitleClick)
+                .setMinDate(new Date());
+
+        calendarView.setDisabledDates(getDisabledDates());
 
         if (calendarView.isMultiSelectDayEnabled()) {
             calendarView.setOnMultipleDaySelectedListener((month, dates) -> {
@@ -154,5 +159,20 @@ public final class MainActivity extends AppCompatActivity implements MainView {
 
     private String formatDate(@NonNull String dateTemplate, @NonNull Date date) {
         return new SimpleDateFormat(dateTemplate, Locale.getDefault()).format(date);
+    }
+
+    private ArrayList<Date> getDisabledDates(){
+        ArrayList<Date> disabledDates = new ArrayList<>();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
+        try {
+            disabledDates.add(sdf.parse("20-05-2019"));
+            disabledDates.add(sdf.parse("25-05-2019"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return disabledDates;
     }
 }

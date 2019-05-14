@@ -215,7 +215,8 @@ public final class CalendarView extends LinearLayout {
     private DatePickerDialog pickerDialog;
 
     @Nullable
-    private Date disabledDate;
+    private Date minDate;
+    private ArrayList<Date> disabledDates = new ArrayList<>();
 
     /**
      * Constructor with arguments. It receives a
@@ -529,16 +530,34 @@ public final class CalendarView extends LinearLayout {
         ViewGroup container;
 
         Day disabledDay = new Day();
+        ArrayList<Day> disabledDayList = new ArrayList<>();
+        boolean hasDisabledDates = false;
 
-        if (disabledDate != null) {
+        if (minDate != null) {
             Calendar disabledCalendar = Calendar.getInstance();
-            disabledCalendar.setTime(disabledDate);
+            disabledCalendar.setTime(minDate);
 
             disabledDay.setDay(disabledCalendar.get(Calendar.DAY_OF_MONTH))
                     .setMonth(disabledCalendar.get(Calendar.MONTH))
                     .setYear(disabledCalendar.get(Calendar.YEAR));
         } else
             disabledDay.setDay(-121); //random number for check
+
+        if (disabledDates != null && !disabledDates.isEmpty()) {
+            hasDisabledDates = true;
+
+            for (Date d : disabledDates) {
+                Calendar disabledCalendar = Calendar.getInstance();
+                disabledCalendar.setTime(d);
+
+                Day singleDisabledDay = new Day();
+                singleDisabledDay.setDay(disabledCalendar.get(Calendar.DAY_OF_MONTH))
+                        .setMonth(disabledCalendar.get(Calendar.MONTH))
+                        .setYear(disabledCalendar.get(Calendar.YEAR));
+
+                disabledDayList.add(singleDisabledDay);
+            }
+        }
 
         int size = days.size();
 
@@ -582,11 +601,20 @@ public final class CalendarView extends LinearLayout {
                 if (isCommonDay) {
                     textView.setTextColor(dayOfMonthTextColor);
                 }
-                
+
                 if (disabledDay.getDay() != -121) {
                     if (day.compareTo(disabledDay) < 1) {
                         textView.setTextColor(disabledDayTextColor);
                         textView.setBackgroundColor(calendarBackgroundColor);
+                    }
+                }
+
+                if (hasDisabledDates) {
+                    for (Day d : disabledDayList) {
+                        if (day.compareTo(d) == 0) {
+                            textView.setTextColor(disabledDayTextColor);
+                            textView.setBackgroundColor(calendarBackgroundColor);
+                        }
                     }
                 }
 
@@ -793,14 +821,48 @@ public final class CalendarView extends LinearLayout {
 
 
         if (onDateClickListener != null) {
-            if (disabledDate != null) {
-                if (c.getTime().compareTo(disabledDate) > 0) {
+            if (minDate != null) {
+                if (c.getTime().compareTo(minDate) > 0) {
+                    if (disabledDates != null && !disabledDates.isEmpty()) {
+                        boolean isDayDisabled = false;
+                        //If the date is larger than min date, make sure it is not disabled dates
+                        for (Date d : disabledDates) {
+                            if (isSameDay(c.getTime(), d)) {
+                                //If today is found in the list means today is disabled
+                                isDayDisabled = true;
+                                break;
+                            }
+                        }
+
+                        if (!isDayDisabled) {
+                            markDateAsSelected(c.getTime());
+                            onDateClickListener.onDateClick(c.getTime());
+                        }
+                    } else {
+                        markDateAsSelected(c.getTime());
+                        onDateClickListener.onDateClick(c.getTime());
+                    }
+                }
+            } else {
+                if (disabledDates != null && !disabledDates.isEmpty()) {
+                    boolean isDayDisabled = false;
+                    //If min date does not exist, make sure it is not disabled dates
+                    for (Date d : disabledDates) {
+                        if (isSameDay(c.getTime(), d)) {
+                            //If today is found in the list means the today is disabled
+                            isDayDisabled = true;
+                            break;
+                        }
+                    }
+
+                    if (!isDayDisabled) {
+                        markDateAsSelected(c.getTime());
+                        onDateClickListener.onDateClick(c.getTime());
+                    }
+                } else {
                     markDateAsSelected(c.getTime());
                     onDateClickListener.onDateClick(c.getTime());
                 }
-            } else {
-                markDateAsSelected(c.getTime());
-                onDateClickListener.onDateClick(c.getTime());
             }
         } else {
             //Since markDateAsSelected will call cleardayviewselection
@@ -1252,8 +1314,15 @@ public final class CalendarView extends LinearLayout {
         return this;
     }
 
-    public void setDisabledDate(Date disabledDate) {
-        this.disabledDate = disabledDate;
+    //Set all the dates before minDate to be disabled
+    public void setMinDate(Date minDate) {
+        this.minDate = minDate;
+    }
+
+    //Sets a list of dates to be disabled
+    public void setDisabledDates(ArrayList<Date> disabledDates) {
+        this.disabledDates.clear();
+        this.disabledDates.addAll(disabledDates);
     }
 
     public CalendarView setDisabledDayBackgroundColor(int disabledDayBackgroundColor) {
@@ -1384,5 +1453,16 @@ public final class CalendarView extends LinearLayout {
 
     public boolean isMultiSelectDayEnabled() {
         return isMultiSelectDayEnabled;
+    }
+
+    //Private methods
+    private boolean isSameDay(Date date1, Date date2) {
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        cal1.setTime(date1);
+        cal2.setTime(date2);
+        boolean isSameDay = cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) &&
+                cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
+        return isSameDay;
     }
 }
