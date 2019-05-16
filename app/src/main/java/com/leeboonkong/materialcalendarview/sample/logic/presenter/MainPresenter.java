@@ -1,6 +1,7 @@
 package com.leeboonkong.materialcalendarview.sample.logic.presenter;
 
-import androidx.annotation.Nullable;
+
+import android.support.annotation.Nullable;
 
 import com.leeboonkong.materialcalendarview.sample.logic.presenter_view.MainView;
 
