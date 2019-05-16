@@ -1,7 +1,8 @@
 package com.leeboonkong.materialcalendarview.internal.utils;
 
-import android.support.annotation.NonNull;
 import android.util.MonthDisplayHelper;
+
+import androidx.annotation.NonNull;
 
 import com.leeboonkong.materialcalendarview.internal.data.Day;
 

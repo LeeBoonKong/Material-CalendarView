@@ -10,15 +10,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GestureDetectorCompat;
-import android.support.v4.view.MotionEventCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewConfigurationCompat;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -34,6 +25,15 @@ import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
 import android.widget.TextView;
+
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.GestureDetectorCompat;
+import androidx.core.view.MotionEventCompat;
+import androidx.core.view.ViewCompat;
 
 import com.leeboonkong.materialcalendarview.R;
 import com.leeboonkong.materialcalendarview.internal.data.Day;
@@ -207,6 +207,8 @@ public final class CalendarView extends LinearLayout {
     // Day of weekendDays
     private int[] totalDayOfWeekend;
 
+    private ArrayList<SpecialDayOfWeek> specialDayOfWeek = new ArrayList<>();
+
     // true for ordinary day, false for a weekendDays.
     private boolean isCommonDay;
 
@@ -292,7 +294,7 @@ public final class CalendarView extends LinearLayout {
         gestureDetector = new GestureDetectorCompat(getContext(), new CalendarGestureDetector());
         scroller = new Scroller(getContext(), null);
 
-        touchSlop = ViewConfigurationCompat.getScaledPagingTouchSlop(configuration);
+        touchSlop = configuration.getScaledPagingTouchSlop();
         minimumVelocity = (int) (MIN_FLING_VELOCITY * density);
         maximumVelocity = configuration.getScaledMaximumFlingVelocity();
         flingDistance = (int) (MIN_DISTANCE_FOR_FLING * density);
@@ -353,7 +355,7 @@ public final class CalendarView extends LinearLayout {
     }
 
     private void drawHeaderView() {
-        headerView = (com.leeboonkong.materialcalendarview.view.HeaderView) view.findViewById(R.id.header_view);
+        headerView = view.findViewById(R.id.header_view);
 
         headerView.setBackgroundColor(titleBackgroundColor);
 
@@ -428,6 +430,17 @@ public final class CalendarView extends LinearLayout {
                     if (i == weekend) {
                         textView.setTextColor(dayOfWeekTextColor);
                         isCommonDay = false;
+                    }
+                }
+            }
+
+            if (!specialDayOfWeek.isEmpty()) {
+                for (SpecialDayOfWeek specialDayOfWeek : specialDayOfWeek) {
+                    for (int specialDay : specialDayOfWeek.getSpecialDays()) {
+                        if (i == specialDay) {
+                            textView.setTextColor(ContextCompat.getColor(getContext(), specialDayOfWeek.getColor()));
+                            isCommonDay = false;
+                        }
                     }
                 }
             }
@@ -598,6 +611,21 @@ public final class CalendarView extends LinearLayout {
                     }
                 }
 
+                if (!specialDayOfWeek.isEmpty()) {
+                    final Calendar calendar = day.toCalendar(Locale.getDefault());
+
+                    for (SpecialDayOfWeek specialDay : specialDayOfWeek) {
+                        if (specialDay.isHighlightDays()) {
+                            for (int singleCalendarDay : specialDay.getSpecialDays()) {
+                                if (singleCalendarDay == calendar.get(Calendar.DAY_OF_WEEK)) {
+                                    textView.setTextColor(ContextCompat.getColor(getContext(), specialDay.getColor()));
+                                    isCommonDay = false;
+                                }
+                            }
+                        }
+                    }
+                }
+
                 if (isCommonDay) {
                     textView.setTextColor(dayOfMonthTextColor);
                 }
@@ -656,6 +684,19 @@ public final class CalendarView extends LinearLayout {
                 }
             }
 
+            if (!specialDayOfWeek.isEmpty()) {
+                for (SpecialDayOfWeek specialDay : specialDayOfWeek) {
+                    if (specialDay.isHighlightDays()) {
+                        for (int singleCalendarDay : specialDay.getSpecialDays()) {
+                            if (singleCalendarDay == calendar.get(Calendar.DAY_OF_WEEK)) {
+                                dayView.setTextColor(ContextCompat.getColor(getContext(), specialDay.getColor()));
+                                isCommonDay = false;
+                            }
+                        }
+                    }
+                }
+            }
+
             if (isCommonDay) {
                 dayView.setTextColor(dayOfMonthTextColor);
             } else if (currentMonthIndex == 0) {
@@ -706,17 +747,17 @@ public final class CalendarView extends LinearLayout {
     }
 
     private void calculateWeekEnds() {
-        totalDayOfWeekend = new int[2];
+        totalDayOfWeekend = new int[0];
         int weekendIndex = 0;
 
-        for (int i = 0; i < FLAGS.length; i++) {
-            boolean isContained = containsFlag(this.weekendDays, FLAGS[i]);
-
-            if (isContained) {
-                totalDayOfWeekend[weekendIndex] = WEEK_DAYS[i];
-                weekendIndex++;
-            }
-        }
+//        for (int i = 0; i < FLAGS.length; i++) {
+//            boolean isContained = containsFlag(this.weekendDays, FLAGS[i]);
+//
+//            if (isContained) {
+//                totalDayOfWeekend[weekendIndex] = WEEK_DAYS[i];
+//                weekendIndex++;
+//            }
+//        }
     }
 
     private boolean containsFlag(int flagSet, int flag) {
@@ -1397,8 +1438,24 @@ public final class CalendarView extends LinearLayout {
         return this;
     }
 
+    @Deprecated
+    //Deprecated, please use setSpecialDaysOfWeek to indicate your weekends
     public CalendarView setWeekendDays(int weekendDays) {
         this.weekendDays = weekendDays;
+        invalidate();
+        return this;
+    }
+
+    public CalendarView setSpecialDaysOfWeek(ArrayList<SpecialDayOfWeek> specialDays) {
+        this.specialDayOfWeek.clear();
+        this.specialDayOfWeek.addAll(specialDays);
+        invalidate();
+        return this;
+    }
+
+    public CalendarView setSpecialDaysOfWeek(SpecialDayOfWeek specialDays) {
+        this.specialDayOfWeek.clear();
+        this.specialDayOfWeek.add(specialDays);
         invalidate();
         return this;
     }

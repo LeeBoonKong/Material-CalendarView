@@ -1,9 +1,10 @@
 package com.leeboonkong.materialcalendarview.internal.utils;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
+
+import androidx.annotation.NonNull;
 
 public final class ScreenUtils {
 

@@ -1,22 +1,24 @@
 package com.leeboonkong.materialcalendarview.sample.view;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.leeboonkong.materialcalendarview.sample.R;
 import com.leeboonkong.materialcalendarview.sample.logic.presenter.MainPresenter;
 import com.leeboonkong.materialcalendarview.sample.logic.presenter_view.MainView;
 import com.leeboonkong.materialcalendarview.view.CalendarView;
+import com.leeboonkong.materialcalendarview.view.SpecialDayOfWeek;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -93,11 +95,25 @@ public final class MainActivity extends AppCompatActivity implements MainView {
         Calendar disabledCal = Calendar.getInstance();
         disabledCal.set(Calendar.DATE, disabledCal.get(Calendar.DATE) - 1);
 
+        ArrayList<SpecialDayOfWeek> specialDayOfWeeks = new ArrayList<>();
+        //Create a list of days to be special days
+        ArrayList<Integer> specialDays = new ArrayList<>();
+        specialDays.add(Calendar.THURSDAY);
+        specialDays.add(Calendar.TUESDAY);
+
+        ArrayList<Integer> specialDays2 = new ArrayList<>();
+        specialDays2.add(Calendar.SATURDAY);
+        specialDays2.add(Calendar.SUNDAY);
+
+        specialDayOfWeeks.add(new SpecialDayOfWeek(specialDays, R.color.orange, true));
+        specialDayOfWeeks.add(new SpecialDayOfWeek(specialDays2, R.color.red, true));
+
         calendarView.setFirstDayOfWeek(Calendar.SUNDAY)
                 .setOnDateClickListener(this::onDateClick)
                 .setOnMonthChangeListener(this::onMonthChange)
                 .setOnDateLongClickListener(this::onDateLongClick)
                 .setOnMonthTitleClickListener(this::onMonthTitleClick)
+                .setSpecialDaysOfWeek(specialDayOfWeeks)
                 .setMinDate(new Date());
 
         calendarView.setDisabledDates(getDisabledDates());
