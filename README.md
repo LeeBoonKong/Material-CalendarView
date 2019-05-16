@@ -5,7 +5,7 @@
 [![OpenCollective](https://opencollective.com/material-calendar-view/sponsors/badge.svg)](#sponsors)
  
 
-**MaterialCalendarView** is a **prettier** and **simpler**, **material design calendar** that allows full customization and it's backwards compatible with API 11+.
+**MaterialCalendarView** is a **prettier** and **simpler**, **material design calendar** that allows full customization and it's backwards compatible with API 14+.
 
 ## Screenshots
 
