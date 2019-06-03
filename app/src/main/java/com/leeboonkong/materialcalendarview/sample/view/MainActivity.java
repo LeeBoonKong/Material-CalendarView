@@ -113,6 +113,7 @@ public final class MainActivity extends AppCompatActivity implements MainView {
                 .setOnDateLongClickListener(this::onDateLongClick)
                 .setOnMonthTitleClickListener(this::onMonthTitleClick)
                 .setSpecialDaysOfWeek(specialDayOfWeeks)
+                .setLocale(new Locale("ms"))
                 .setMinDate(new Date());
 
         calendarView.setDisabledDates(getDisabledDates());

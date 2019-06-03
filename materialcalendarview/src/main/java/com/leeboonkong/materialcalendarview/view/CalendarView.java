@@ -211,6 +211,9 @@ public final class CalendarView extends LinearLayout {
     // true for ordinary day, false for a weekendDays.
     private boolean isCommonDay;
 
+    //Locale used for language display
+    private Locale locale;
+
     private View view;
     private com.leeboonkong.materialcalendarview.view.HeaderView headerView;
     private DatePickerDialog pickerDialog;
@@ -346,11 +349,11 @@ public final class CalendarView extends LinearLayout {
 
     private void drawCalendar() {
         view = LayoutInflater.from(getContext()).inflate(R.layout.material_calendar_view, this, true);
-        calendar = Calendar.getInstance(Locale.getDefault());
+        calendar = Calendar.getInstance(getLocale());
         firstDayOfWeek = Calendar.SUNDAY;
         currentMonthIndex = 0;
 
-        update(Calendar.getInstance(Locale.getDefault()));
+        update(Calendar.getInstance(getLocale()));
     }
 
     private void drawHeaderView() {
@@ -358,7 +361,7 @@ public final class CalendarView extends LinearLayout {
 
         headerView.setBackgroundColor(titleBackgroundColor);
 
-        headerView.setTitle(CalendarUtils.getDateTitle(Locale.getDefault(), currentMonthIndex))
+        headerView.setTitle(CalendarUtils.getDateTitle(getLocale(), currentMonthIndex))
                 .setNextButtonDrawable(nextButtonDrawable)
                 .setBackButtonDrawable(backButtonDrawable)
                 .setNextButtonColor(buttonBackgroundColor)
@@ -394,9 +397,9 @@ public final class CalendarView extends LinearLayout {
     }
 
     private void updateCalendarOnTouch() {
-        headerView.setTitle(CalendarUtils.getDateTitle(Locale.getDefault(), currentMonthIndex));
+        headerView.setTitle(CalendarUtils.getDateTitle(getLocale(), currentMonthIndex));
 
-        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        Calendar calendar = Calendar.getInstance(getLocale());
         calendar.add(Calendar.MONTH, currentMonthIndex);
 
         update(calendar);
@@ -407,7 +410,7 @@ public final class CalendarView extends LinearLayout {
     }
 
     private void drawWeekView() {
-        final List<String> shortWeekDays = CalendarUtils.getShortWeekDays(Locale.getDefault());
+        final List<String> shortWeekDays = CalendarUtils.getShortWeekDays(getLocale());
         final View v = view.findViewById(R.id.week_layout);
 
         v.setBackgroundColor(weekBackgroundColor);
@@ -461,7 +464,7 @@ public final class CalendarView extends LinearLayout {
      */
     //TODO review it, we need to provide a Material Design version of Picker for Month and Year
     private void showDatePickerDialog() {
-        calendar = Calendar.getInstance(Locale.getDefault());
+        calendar = Calendar.getInstance(getLocale());
 
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
@@ -525,7 +528,7 @@ public final class CalendarView extends LinearLayout {
 
         currentMonthIndex = (year - y) * 12 + (monthOfYear - m);
 
-        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        Calendar calendar = Calendar.getInstance(getLocale());
         calendar.add(Calendar.MONTH, currentMonthIndex);
 
         update(calendar);
@@ -600,7 +603,7 @@ public final class CalendarView extends LinearLayout {
                 isCommonDay = true;
 
                 if (totalDayOfWeekend.length != 0) {
-                    final Calendar calendar = day.toCalendar(Locale.getDefault());
+                    final Calendar calendar = day.toCalendar(getLocale());
 
                     for (int weekend : totalDayOfWeekend) {
                         if (weekend == calendar.get(Calendar.DAY_OF_WEEK)) {
@@ -611,7 +614,7 @@ public final class CalendarView extends LinearLayout {
                 }
 
                 if (!specialDayOfWeek.isEmpty()) {
-                    final Calendar calendar = day.toCalendar(Locale.getDefault());
+                    final Calendar calendar = day.toCalendar(getLocale());
 
                     for (SpecialDayOfWeek specialDay : specialDayOfWeek) {
                         if (specialDay.isHighlightDays()) {
@@ -666,7 +669,7 @@ public final class CalendarView extends LinearLayout {
 
     private void clearDayViewSelection(Date currentDate) {
         if (currentDate != null) {
-            Calendar calendar = Calendar.getInstance(Locale.getDefault());
+            Calendar calendar = Calendar.getInstance(getLocale());
             calendar.setFirstDayOfWeek(firstDayOfWeek);
             calendar.setTime(currentDate);
 
@@ -712,7 +715,7 @@ public final class CalendarView extends LinearLayout {
     }
 
     public com.leeboonkong.materialcalendarview.view.DayView findViewByDate(@NonNull Date date) {
-        final Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        final Calendar calendar = Calendar.getInstance(getLocale());
         calendar.setTime(date);
 
         return getView(getContext().getString(R.string.day_of_month_text), calendar);
@@ -764,7 +767,7 @@ public final class CalendarView extends LinearLayout {
     }
 
     private void drawCurrentDay(@NonNull Date date) {
-        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        Calendar calendar = Calendar.getInstance(getLocale());
         calendar.setTime(date);
 
         if (CalendarUtils.isToday(calendar)) {
@@ -780,7 +783,7 @@ public final class CalendarView extends LinearLayout {
     }
 
     public void markDateAsSelected(@NonNull Date date) {
-        Calendar currentCalendar = Calendar.getInstance(Locale.getDefault());
+        Calendar currentCalendar = Calendar.getInstance(getLocale());
         currentCalendar.setFirstDayOfWeek(firstDayOfWeek);
         currentCalendar.setTime(date);
 
@@ -1355,7 +1358,7 @@ public final class CalendarView extends LinearLayout {
     }
 
     //Set all the dates before minDate to be disabled
-    public void setMinDate(Date minDate) {
+    public void setMinDate(@Nullable Date minDate) {
         this.minDate = minDate;
     }
 
@@ -1503,6 +1506,11 @@ public final class CalendarView extends LinearLayout {
         return this;
     }
 
+    public CalendarView setLocale(Locale locale) {
+        this.locale = locale;
+        return this;
+    }
+
     public boolean isOverflowDateVisible() {
         return isOverflowDateVisible;
     }
@@ -1520,5 +1528,13 @@ public final class CalendarView extends LinearLayout {
         boolean isSameDay = cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) &&
                 cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
         return isSameDay;
+    }
+
+    private Locale getLocale() {
+        if (locale != null) {
+            return locale;
+        } else {
+            return Locale.getDefault();
+        }
     }
 }
