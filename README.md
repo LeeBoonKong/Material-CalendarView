@@ -16,7 +16,7 @@
 
 <img src="https://i.imgur.com/ViolZD2.gif" height="550" width="100%" style="align: center;">
 
-## Installation
+## Quick Start
 
 **Gradle**
 
@@ -37,8 +37,6 @@ dependencies {
     implementation 'com.github.LeeBoonKong:Material-CalendarView:1.15'
 }
 ```
-
-## Usage example
 
 In your layout.xml file:
 
