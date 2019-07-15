@@ -207,7 +207,7 @@ public final class CalendarView extends LinearLayout {
     private Map<Integer, List<Date>> selectedDatesForMonth = new HashMap<>();
 
     // Day of weekendDays
-    private int[] totalDayOfWeekend;
+    private int[] totalDayOfWeekend = new int[0];
 
     private ArrayList<SpecialDayOfWeek> specialDayOfWeek = new ArrayList<>();
 
@@ -555,6 +555,7 @@ public final class CalendarView extends LinearLayout {
         ArrayList<Day> disabledDayList = new ArrayList<>();
         boolean hasDisabledDates = false;
 
+        //calculate and apply the minimum date
         if (minDate != null) {
             Calendar disabledCalendar = Calendar.getInstance();
             disabledCalendar.setTime(minDate);
@@ -562,9 +563,11 @@ public final class CalendarView extends LinearLayout {
             disabledDay.setDay(disabledCalendar.get(Calendar.DAY_OF_MONTH))
                     .setMonth(disabledCalendar.get(Calendar.MONTH))
                     .setYear(disabledCalendar.get(Calendar.YEAR));
-        } else
+        } else {
             disabledDay.setDay(-121); //random number for check
+        }
 
+        //Convert all disabled dates to Day and put inside a list
         if (disabledDates != null && !disabledDates.isEmpty()) {
             hasDisabledDates = true;
 
@@ -583,6 +586,7 @@ public final class CalendarView extends LinearLayout {
 
         int size = days.size();
 
+        //Draw the view for each day
         for (int i = 0; i < size; i++) {
             Day day = days.get(i);
 
@@ -672,6 +676,19 @@ public final class CalendarView extends LinearLayout {
                 }
             }
         }
+
+        //If there is lastSelectedDay, however, markDateAsSelected() will mark the date at an absolute position
+        //regardless which month you are in.
+        //Therefore we will highlight the date by checking if the user had navigated into the same
+        //month as their last selection.
+        if (lastSelectedDay != null) {
+            Calendar lastSelectedCalendar = Calendar.getInstance();
+            lastSelectedCalendar.setTime(lastSelectedDay);
+
+            if (CalendarUtils.isSameMonth(lastSelectedCalendar, calendar)) {
+                markDateAsSelected(lastSelectedDay);
+            }
+        }
     }
 
     private void clearDayViewSelection(Date currentDate) {
@@ -721,14 +738,14 @@ public final class CalendarView extends LinearLayout {
         }
     }
 
-    public com.leeboonkong.materialcalendarview.view.DayView findViewByDate(@NonNull Date date) {
+    public DayView findViewByDate(@NonNull Date date) {
         final Calendar calendar = Calendar.getInstance(getLocale());
         calendar.setTime(date);
 
         return getView(getContext().getString(R.string.day_of_month_text), calendar);
     }
 
-    private com.leeboonkong.materialcalendarview.view.DayView findViewByCalendar(@NonNull Calendar calendar) {
+    private DayView findViewByCalendar(@NonNull Calendar calendar) {
         return getView(getContext().getString(R.string.day_of_month_text), calendar);
     }
 
@@ -739,7 +756,7 @@ public final class CalendarView extends LinearLayout {
         return currentDay + monthOffset;
     }
 
-    private com.leeboonkong.materialcalendarview.view.DayView getView(String key, Calendar currentCalendar) {
+    private DayView getView(String key, Calendar currentCalendar) {
         final int index = getDayIndexByDate(currentCalendar);
         return (com.leeboonkong.materialcalendarview.view.DayView) view.findViewWithTag(key + index);
     }
@@ -927,14 +944,14 @@ public final class CalendarView extends LinearLayout {
     }
 
     private void onSecondaryPointerUp(MotionEvent ev) {
-        final int pointerIndex = MotionEventCompat.getActionIndex(ev);
-        final int pointerId = MotionEventCompat.getPointerId(ev, pointerIndex);
+        final int pointerIndex = ev.getActionIndex();
+        final int pointerId = ev.getPointerId(pointerIndex);
         if (pointerId == activePointerId) {
             // This was our active pointer going up. Choose a new
             // active pointer and adjust accordingly.
             final int newPointerIndex = pointerIndex == 0 ? 1 : 0;
-            lastMotionX = MotionEventCompat.getX(ev, newPointerIndex);
-            activePointerId = MotionEventCompat.getPointerId(ev, newPointerIndex);
+            lastMotionX = ev.getX(newPointerIndex);
+            activePointerId = ev.getPointerId(newPointerIndex);
 
             if (velocityTracker != null) {
                 velocityTracker.clear();
@@ -988,7 +1005,7 @@ public final class CalendarView extends LinearLayout {
             }
         }
 
-        return checkV && ViewCompat.canScrollHorizontally(v, -dx);
+        return checkV && v.canScrollHorizontally(-dx);
     }
 
     private void completeScroll(boolean postEvents) {
@@ -1034,7 +1051,7 @@ public final class CalendarView extends LinearLayout {
          * scrolling there.
          */
 
-        final int action = ev.getAction() & MotionEventCompat.ACTION_MASK;
+        final int action = ev.getAction() & MotionEvent.ACTION_MASK;
 
         // Always take care of the touch gesture being complete.
         if (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP) {
@@ -1117,7 +1134,7 @@ public final class CalendarView extends LinearLayout {
                  */
                 lastMotionX = initialMotionX = ev.getX();
                 lastMotionY = initialMotionY = ev.getY();
-                activePointerId = MotionEventCompat.getPointerId(ev, 0);
+                activePointerId = ev.getPointerId(0);
                 isUnableToDrag = false;
 
                 scroller.computeScrollOffset();
@@ -1133,7 +1150,7 @@ public final class CalendarView extends LinearLayout {
                 break;
             }
 
-            case MotionEventCompat.ACTION_POINTER_UP:
+            case MotionEvent.ACTION_POINTER_UP:
                 onSecondaryPointerUp(ev);
                 break;
         }
@@ -1280,8 +1297,10 @@ public final class CalendarView extends LinearLayout {
 
     public CalendarView shouldAnimateOnEnter(boolean shouldAnimate, long duration, @NonNull Interpolator interpolator) {
         if (shouldAnimate) {
-            ViewCompat.setTranslationY(this, getScreenHeight(getContext()));
-            ViewCompat.setAlpha(this, 0f);
+//            ViewCompat.setTranslationY(this, getScreenHeight(getContext()));
+            this.setTranslationY(getScreenHeight(getContext()));
+//            ViewCompat.setAlpha(this, 0f);
+            this.setAlpha(0f);
             ViewCompat.animate(this)
                     .translationY(0f)
                     .setDuration(duration)
