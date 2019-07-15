@@ -4,8 +4,10 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,6 +29,7 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.view.Window;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.DatePicker;
@@ -470,7 +473,11 @@ public final class CalendarView extends LinearLayout {
         final int month = calendar.get(Calendar.MONTH);
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        pickerDialog = new DatePickerDialog(getContext(), R.style.CalendarViewTitle, this::onDateSet, year, month, day);
+        pickerDialog = new DatePickerDialog(getContext(), android.R.style.Theme_Holo_Light_Dialog, this::onDateSet, year, month, day);
+        pickerDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        if (pickerDialog.getWindow() != null) {
+            pickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             setSpinnerVisibility("day", View.GONE);
@@ -1353,6 +1360,7 @@ public final class CalendarView extends LinearLayout {
 
     public CalendarView setFirstDayOfWeek(int firstDayOfWeek) {
         this.firstDayOfWeek = firstDayOfWeek;
+        update(calendar);
         invalidate();
         return this;
     }
@@ -1525,9 +1533,8 @@ public final class CalendarView extends LinearLayout {
         Calendar cal2 = Calendar.getInstance();
         cal1.setTime(date1);
         cal2.setTime(date2);
-        boolean isSameDay = cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) &&
+        return cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) &&
                 cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
-        return isSameDay;
     }
 
     private Locale getLocale() {
