@@ -102,17 +102,11 @@ If you found a bug, or questions, you can open an issue at this github repositor
 Of course, if you see something that you want to upgrade from this library, or a bug that needs to be solved, **PRs are welcome!**  
 Currently me(LeeBoonKong) is the only one maintaining this repository and fixing bugs, this is an open source project forked from https://github.com/BlackBoxVision/material-calendar-view, but the original was not maintained anymore.  
 If you would like to contribute you can:  
-> Write documentations for this project.  
-> Fix bugs, add new features and maintain this project.  
+1. Write documentations for this project.  
+2. Fix bugs, add new features and maintain this project.  
   
 Your Github username will be included in the <Developers and Maintainers> section.
-
-## Backers  
-Please visit the original repository at https://github.com/BlackBoxVision/material-calendar-view
-
-## Sponsors  
-Please visit the orignal repository at https://github.com/BlackBoxVision/material-calendar-view
-
+	
 ## Developers and Maintainers(Github username)
 LeeBoonKong  
 
