@@ -5,7 +5,7 @@
 [![OpenCollective](https://opencollective.com/material-calendar-view/sponsors/badge.svg)](#sponsors)
  
 
-**MaterialCalendarView** is a **prettier** and **simpler**, **material design calendar** that allows full customization and it's backwards compatible with API 14+.
+**MaterialCalendarView** is a **prettier** and **simpler**, **material design calendar** that allows full customization and it's backwards compatible with API 19+.
 
 ## Screenshots
 
@@ -34,40 +34,8 @@ repositories {
 
 ```java
 dependencies {
-    compile 'com.github.BlackBoxVision:material-calendar-view:v1.5.8'
+    implementation 'com.github.LeeBoonKong:Material-CalendarView:1.15'
 }
-```
-**Maven**
-
-- Add the JitPack repository to your maven file. 
-
-```xml
-<repository>
-     <id>jitpack.io</id>
-     <url>https://jitpack.io</url>
-</repository>
-```
-- Add the dependency in the form
-
-```xml
-<dependency>
-    <groupId>com.github.BlackBoxVision</groupId>
-    <artifactId>material-calendar-view</artifactId>
-    <version>v1.5.8</version>
-</dependency>
-```
-**SBT**
-
-- Add it in your build.sbt at the end of resolvers:
-
-```java
-resolvers += "jitpack" at "https://jitpack.io"
-```
-
-- Add the dependency in the form:
-
-```java
-libraryDependencies += "com.github.BlackBoxVision" % "material-calendar-view" % "v1.5.8"
 ```
 
 ## Usage example
