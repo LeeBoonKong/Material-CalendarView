@@ -389,12 +389,12 @@ public final class CalendarView extends LinearLayout {
         updateCalendarOnTouch();
     }
 
-    public void onNextButtonClick(@NonNull View v) {
+    private void onNextButtonClick(@NonNull View v) {
         currentMonthIndex++;
         updateCalendarOnTouch();
     }
 
-    public void onBackButtonClick(@NonNull View v) {
+    private void onBackButtonClick(@NonNull View v) {
         currentMonthIndex--;
         updateCalendarOnTouch();
     }
@@ -529,7 +529,7 @@ public final class CalendarView extends LinearLayout {
         }
     }
 
-    public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+    private void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
         final int y = calendar.get(Calendar.YEAR);
         final int m = calendar.get(Calendar.MONTH);
 
@@ -738,7 +738,7 @@ public final class CalendarView extends LinearLayout {
         }
     }
 
-    public DayView findViewByDate(@NonNull Date date) {
+    private DayView findViewByDate(@NonNull Date date) {
         final Calendar calendar = Calendar.getInstance(getLocale());
         calendar.setTime(date);
 
@@ -857,7 +857,7 @@ public final class CalendarView extends LinearLayout {
         return false;
     }
 
-    public void onClick(View view) {
+    private void onClick(View view) {
         // Extract day selected
         ViewGroup dayOfMonthContainer = (ViewGroup) view;
         String tagId = (String) dayOfMonthContainer.getTag();
@@ -1453,11 +1453,10 @@ public final class CalendarView extends LinearLayout {
         return this;
     }
 
-    @Deprecated
     /**
-     *
      * @deprecated use setSpecialDaysOfWeek() instead to set the color of your weekend!
      */
+    @Deprecated
     public CalendarView setWeekendDays(int weekendDays) {
         this.weekendDays = weekendDays;
         invalidate();
