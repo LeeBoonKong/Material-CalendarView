@@ -548,7 +548,7 @@ public final class CalendarView extends LinearLayout {
     private void drawAdapterView() {
         final List<Day> days = CalendarUtils.obtainDays(calendar, currentMonthIndex);
 
-        com.leeboonkong.materialcalendarview.view.DayView textView;
+        DayView textView;
         ViewGroup container;
 
         Day disabledDay = new Day();
@@ -588,8 +588,8 @@ public final class CalendarView extends LinearLayout {
 
             int fixedIndex = i + 1;
 
-            container = (ViewGroup) view.findViewWithTag(getContext().getString(R.string.day_of_month_container) + fixedIndex);
-            textView = (com.leeboonkong.materialcalendarview.view.DayView) view.findViewWithTag(getContext().getString(R.string.day_of_month_text) + fixedIndex);
+            container = view.findViewWithTag(getContext().getString(R.string.day_of_month_container) + fixedIndex);
+            textView = view.findViewWithTag(getContext().getString(R.string.day_of_month_text) + fixedIndex);
 
             container.setOnClickListener(null);
 
@@ -748,25 +748,10 @@ public final class CalendarView extends LinearLayout {
         calendar = calender;
         calendar.setFirstDayOfWeek(firstDayOfWeek);
 
-        calculateWeekEnds();
 
         drawHeaderView();
         drawWeekView();
         drawAdapterView();
-    }
-
-    private void calculateWeekEnds() {
-        totalDayOfWeekend = new int[0];
-        int weekendIndex = 0;
-
-//        for (int i = 0; i < FLAGS.length; i++) {
-//            boolean isContained = containsFlag(this.weekendDays, FLAGS[i]);
-//
-//            if (isContained) {
-//                totalDayOfWeekend[weekendIndex] = WEEK_DAYS[i];
-//                weekendIndex++;
-//            }
-//        }
     }
 
     private boolean containsFlag(int flagSet, int flag) {
@@ -778,7 +763,7 @@ public final class CalendarView extends LinearLayout {
         calendar.setTime(date);
 
         if (CalendarUtils.isToday(calendar)) {
-            final com.leeboonkong.materialcalendarview.view.DayView dayOfMonth = findViewByCalendar(calendar);
+            final DayView dayOfMonth = findViewByCalendar(calendar);
 
             dayOfMonth.setTextColor(currentDayTextColor);
 
@@ -1449,7 +1434,10 @@ public final class CalendarView extends LinearLayout {
     }
 
     @Deprecated
-    //Deprecated, please use setSpecialDaysOfWeek to indicate your weekends
+    /**
+     *
+     * @deprecated use setSpecialDaysOfWeek() instead to set the color of your weekend!
+     */
     public CalendarView setWeekendDays(int weekendDays) {
         this.weekendDays = weekendDays;
         invalidate();

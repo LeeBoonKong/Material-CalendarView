@@ -1,13 +1,13 @@
 package com.leeboonkong.materialcalendarview.view;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 import com.leeboonkong.materialcalendarview.internal.data.Day;
 
 
-public final class DayView extends TextView {
+public final class DayView extends AppCompatTextView {
     private Day day;
 
     public DayView(Context context) {

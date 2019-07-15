@@ -104,7 +104,7 @@ public final class MainActivity extends AppCompatActivity implements MainView {
         specialDays2.add(Calendar.SATURDAY);
         specialDays2.add(Calendar.SUNDAY);
 
-        specialDayOfWeeks.add(new SpecialDayOfWeek(specialDays, R.color.orange, true));
+        specialDayOfWeeks.add(new SpecialDayOfWeek(specialDays, R.color.orange, false));
         specialDayOfWeeks.add(new SpecialDayOfWeek(specialDays2, R.color.red, true));
 
         calendarView.setFirstDayOfWeek(Calendar.MONDAY)
