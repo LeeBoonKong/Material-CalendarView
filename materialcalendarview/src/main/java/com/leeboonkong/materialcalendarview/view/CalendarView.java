@@ -218,7 +218,7 @@ public final class CalendarView extends LinearLayout {
     private Locale locale;
 
     private View view;
-    private com.leeboonkong.materialcalendarview.view.HeaderView headerView;
+    private HeaderView headerView;
     private DatePickerDialog pickerDialog;
 
     @Nullable
@@ -758,7 +758,7 @@ public final class CalendarView extends LinearLayout {
 
     private DayView getView(String key, Calendar currentCalendar) {
         final int index = getDayIndexByDate(currentCalendar);
-        return (com.leeboonkong.materialcalendarview.view.DayView) view.findViewWithTag(key + index);
+        return (DayView) view.findViewWithTag(key + index);
     }
 
     public void update(@NonNull Calendar calender) {
