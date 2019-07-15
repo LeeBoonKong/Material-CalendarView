@@ -791,7 +791,8 @@ public final class CalendarView extends LinearLayout {
         }
     }
 
-    public void markDateAsSelected(@NonNull Date date) {
+    //This function will mark the ABSOLUTE position of a date, regardless of which month the user is currently viewing
+    private void markDateAsSelected(@NonNull Date date) {
         Calendar currentCalendar = Calendar.getInstance(getLocale());
         currentCalendar.setFirstDayOfWeek(firstDayOfWeek);
         currentCalendar.setTime(date);
@@ -836,7 +837,7 @@ public final class CalendarView extends LinearLayout {
         ViewGroup dayOfMonthContainer = (ViewGroup) view;
         String tagId = (String) dayOfMonthContainer.getTag();
         tagId = tagId.substring(getContext().getString(R.string.day_of_month_container).length(), tagId.length());
-        final TextView dayOfMonthText = (TextView) view.findViewWithTag(getContext().getString(R.string.day_of_month_text) + tagId);
+        final TextView dayOfMonthText = view.findViewWithTag(getContext().getString(R.string.day_of_month_text) + tagId);
 
         // Fire event
         Calendar calendar = Calendar.getInstance();
@@ -862,7 +863,7 @@ public final class CalendarView extends LinearLayout {
         String tagId = (String) dayOfMonthContainer.getTag();
         tagId = tagId.substring(getContext().getString(R.string.day_of_month_container).length(), tagId.length());
 
-        final TextView dayOfMonthText = (TextView) view.findViewWithTag(getContext().getString(R.string.day_of_month_text) + tagId);
+        final TextView dayOfMonthText = view.findViewWithTag(getContext().getString(R.string.day_of_month_text) + tagId);
 
         // Fire event
         Calendar c = Calendar.getInstance();
