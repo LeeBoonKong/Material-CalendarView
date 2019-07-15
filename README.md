@@ -5,7 +5,7 @@
 [![OpenCollective](https://opencollective.com/material-calendar-view/sponsors/badge.svg)](#sponsors)
  
 
-**MaterialCalendarView** is a **prettier** and **simpler**, **material design calendar** that allows full customization and it's backwards compatible with API 14+.
+**MaterialCalendarView** is a **prettier** and **simpler**, **material design calendar** that allows full customization and it's backwards compatible with API 19+.
 
 ## Screenshots
 
@@ -16,7 +16,7 @@
 
 <img src="https://i.imgur.com/ViolZD2.gif" height="550" width="100%" style="align: center;">
 
-## Installation
+## Quick Start
 
 **Gradle**
 
@@ -34,43 +34,9 @@ repositories {
 
 ```java
 dependencies {
-    compile 'com.github.BlackBoxVision:material-calendar-view:v1.5.8'
+    implementation 'com.github.LeeBoonKong:Material-CalendarView:1.15'
 }
 ```
-**Maven**
-
-- Add the JitPack repository to your maven file. 
-
-```xml
-<repository>
-     <id>jitpack.io</id>
-     <url>https://jitpack.io</url>
-</repository>
-```
-- Add the dependency in the form
-
-```xml
-<dependency>
-    <groupId>com.github.BlackBoxVision</groupId>
-    <artifactId>material-calendar-view</artifactId>
-    <version>v1.5.8</version>
-</dependency>
-```
-**SBT**
-
-- Add it in your build.sbt at the end of resolvers:
-
-```java
-resolvers += "jitpack" at "https://jitpack.io"
-```
-
-- Add the dependency in the form:
-
-```java
-libraryDependencies += "com.github.BlackBoxVision" % "material-calendar-view" % "v1.5.8"
-```
-
-## Usage example
 
 In your layout.xml file:
 
@@ -127,84 +93,22 @@ if (calendarView.isMultiSelectDayEnabled()) {
 calendarView.update(Calendar.getInstance(Locale.getDefault()));
 ```
 
-## Issues
+## Issues  
+If you found a bug, or questions, you can open an issue at this github repository.  
 
-If you found a bug, or you have an answer, or whatever. Please, open an [issue](https://github.com/BlackBoxVision/material-calendar-view/issues). I will do the best to fix it, or help you.
-
-## Contributing
-
-Of course, if you see something that you want to upgrade from this library, or a bug that needs to be solved, **PRs are welcome!**
-
-
-## Backers
-Support us with a monthly donation and help us continue our activities. [[Become a backer](https://opencollective.com/material-calendar-view#backer)]
-
-<a href="https://opencollective.com/material-calendar-view/backer/0/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/0/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/1/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/1/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/2/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/2/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/3/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/3/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/4/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/4/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/5/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/5/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/6/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/6/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/7/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/7/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/8/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/8/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/9/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/9/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/10/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/10/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/11/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/11/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/12/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/12/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/13/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/13/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/14/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/14/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/15/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/15/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/16/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/16/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/17/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/17/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/18/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/18/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/19/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/19/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/20/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/20/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/21/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/21/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/22/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/22/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/23/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/23/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/24/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/24/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/25/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/25/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/26/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/26/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/27/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/27/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/28/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/28/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/backer/29/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/backer/29/avatar.svg"></a>
-
-## Sponsors
-Become a sponsor and get your logo on our README on Github with a link to your site. [[Become a sponsor](https://opencollective.com/material-calendar-view#sponsor)]
-
-<a href="https://opencollective.com/material-calendar-view/sponsor/0/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/0/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/1/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/1/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/2/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/2/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/3/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/3/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/4/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/4/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/5/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/5/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/6/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/6/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/7/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/7/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/8/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/8/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/9/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/9/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/10/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/10/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/11/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/11/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/12/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/12/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/13/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/13/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/14/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/14/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/15/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/15/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/16/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/16/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/17/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/17/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/18/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/18/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/19/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/19/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/20/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/20/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/21/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/21/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/22/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/22/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/23/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/23/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/24/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/24/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/25/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/25/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/26/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/26/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/27/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/27/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/28/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/28/avatar.svg"></a>
-<a href="https://opencollective.com/material-calendar-view/sponsor/29/website" target="_blank"><img src="https://opencollective.com/material-calendar-view/sponsor/29/avatar.svg"></a>
+## Contributing  
+Of course, if you see something that you want to upgrade from this library, or a bug that needs to be solved, **PRs are welcome!**  
+Currently me(LeeBoonKong) is the only one maintaining this repository and fixing bugs, this is an open source project forked from https://github.com/BlackBoxVision/material-calendar-view, but the original was not maintained anymore.  
+If you would like to contribute you can:  
+1. Write documentations for this project.  
+2. Fix bugs, add new features and maintain this project.  
+  
+Your Github username will be included in the <Developers and Maintainers> section.
+	
+## Developers and Maintainers(Github username)
+LeeBoonKong  
 
 ## License
 
-Distributed under the **MIT license**. See [LICENSE](https://github.com/BlackBoxVision/material-calendar-view/blob/master/LICENSE) for more information.
+Distributed under the **MIT license**. See [LICENSE](https://github.com/LeeBoonKong/Material-CalendarView/blob/master/LICENSE.txt) for more information.
 
