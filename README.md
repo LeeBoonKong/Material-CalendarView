@@ -92,6 +92,8 @@ if (calendarView.isMultiSelectDayEnabled()) {
 
 calendarView.update(Calendar.getInstance(Locale.getDefault()));
 ```
+  
+Enjoy your new, beautiful, Materially-Designed calendar!
 
 ## Issues  
 If you found a bug, or questions, you can open an issue at this github repository.  
@@ -103,7 +105,7 @@ If you would like to contribute you can:
 1. Write documentations for this project.  
 2. Fix bugs, add new features and maintain this project.  
   
-Your Github username will be included in the <Developers and Maintainers> section.
+Your Github username will be included in the "Developers and Maintainers" section.  
 	
 ## Developers and Maintainers(Github username)
 LeeBoonKong  
