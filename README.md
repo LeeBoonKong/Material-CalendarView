@@ -70,8 +70,7 @@ This example shows all the possible customization around Material Calendar View:
 	app:calendarWeekBackgroundColor="@color/colorPrimary"
 	app:calendarCurrentDayBackgroundColor="@color/teal500"
 	app:calendarWeekendTextColor="@color/colorAccent"
-	app:calendarButtonBackgroundColor="@color/colorAccent"
-	app:calendarWeekendDays="saturday|sunday">
+	app:calendarButtonBackgroundColor="@color/colorAccent">
 </com.leeboonkong.materialcalendarview.view.CalendarView>
 ```
 Then, in your Activity.java or Fragment.java initialize the calendar: 
@@ -105,7 +104,7 @@ If you would like to contribute you can:
 1. Write documentations for this project.  
 2. Fix bugs, add new features and maintain this project.  
   
-Your Github username will be included in the "Developers and Maintainers" section.  
+Your Github username will be included in the **Developers and Maintainers** section.  
 	
 ## Developers and Maintainers(Github username)
 LeeBoonKong  
