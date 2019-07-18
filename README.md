@@ -1,9 +1,7 @@
 <img src="https://raw.githubusercontent.com/BlackBoxVision/material-calendar-view/master/art/logo.png" width="720px" height="125px">
 > Prettier and simpler Material Design CalendarView
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Material%20Calendar%20View-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2715) [![](https://jitpack.io/v/BlackBoxVision/material-calendar-view.svg)](https://jitpack.io/#BlackBoxVision/material-calendar-view) ![Build Status](https://travis-ci.org/BlackBoxVision/material-calendar-view.svg?branch=master) [![OpenCollective](https://opencollective.com/material-calendar-view/backers/badge.svg)](#backers) 
-[![OpenCollective](https://opencollective.com/material-calendar-view/sponsors/badge.svg)](#sponsors)
- 
+[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)]  
 
 **MaterialCalendarView** is a **prettier** and **simpler**, **material design calendar** that allows full customization and it's backwards compatible with API 19+.
 
@@ -70,8 +68,7 @@ This example shows all the possible customization around Material Calendar View:
 	app:calendarWeekBackgroundColor="@color/colorPrimary"
 	app:calendarCurrentDayBackgroundColor="@color/teal500"
 	app:calendarWeekendTextColor="@color/colorAccent"
-	app:calendarButtonBackgroundColor="@color/colorAccent"
-	app:calendarWeekendDays="saturday|sunday">
+	app:calendarButtonBackgroundColor="@color/colorAccent">
 </com.leeboonkong.materialcalendarview.view.CalendarView>
 ```
 Then, in your Activity.java or Fragment.java initialize the calendar: 
@@ -92,6 +89,8 @@ if (calendarView.isMultiSelectDayEnabled()) {
 
 calendarView.update(Calendar.getInstance(Locale.getDefault()));
 ```
+  
+Enjoy your new, beautiful, Materially-Designed calendar!
 
 ## Issues  
 If you found a bug, or questions, you can open an issue at this github repository.  
@@ -103,7 +102,7 @@ If you would like to contribute you can:
 1. Write documentations for this project.  
 2. Fix bugs, add new features and maintain this project.  
   
-Your Github username will be included in the <Developers and Maintainers> section.
+Your Github username will be included in the **Developers and Maintainers** section.  
 	
 ## Developers and Maintainers(Github username)
 LeeBoonKong  
