@@ -193,8 +193,6 @@ public final class CalendarView extends LinearLayout {
     private int dayOfWeekTextColor;
     private int dayOfMonthTextColor;
     private int currentDayTextColor;
-    private int weekendTextColor;
-    private int weekendDays;
     private int buttonBackgroundColor;
     private int currentDayBackgroundColor;
     private int backButtonDrawable;
@@ -205,9 +203,6 @@ public final class CalendarView extends LinearLayout {
     private int firstDayOfWeek;
     private int currentMonthIndex;
     private Map<Integer, List<Date>> selectedDatesForMonth = new HashMap<>();
-
-    // Day of weekendDays
-    private int[] totalDayOfWeekend = new int[0];
 
     private ArrayList<SpecialDayOfWeek> specialDayOfWeek = new ArrayList<>();
 
@@ -337,8 +332,8 @@ public final class CalendarView extends LinearLayout {
             selectedDayTextColor = a.getColor(R.styleable.MaterialCalendarView_calendarSelectedDayTextColor, white);
             currentDayBackgroundColor = a.getColor(R.styleable.MaterialCalendarView_calendarCurrentDayBackgroundColor, dayCurrent);
             currentDayTextColor = a.getColor(R.styleable.MaterialCalendarView_calendarCurrentDayTextColor, dayCurrent);
-            weekendTextColor = a.getColor(R.styleable.MaterialCalendarView_calendarWeekendTextColor, endColor);
-            weekendDays = a.getInteger(R.styleable.MaterialCalendarView_calendarWeekendDays, 0);
+            //weekendTextColor removed because of not used anymore
+            //weekendDays remove because not used anymore
             isOverflowDateVisible = a.getBoolean(R.styleable.MaterialCalendarView_calendarIsOverflowDatesVisible, true);
             isMultiSelectDayEnabled = a.getBoolean(R.styleable.MaterialCalendarView_calendarIsMultiSelectDayEnabled, false);
             backButtonDrawable = a.getResourceId(R.styleable.MaterialCalendarView_calendarBackButtonDrawable, R.drawable.ic_keyboard_arrow_left_black_24dp);
@@ -359,6 +354,7 @@ public final class CalendarView extends LinearLayout {
         update(Calendar.getInstance(getLocale()));
     }
 
+    //Function to draw the Left and right button and the month title
     private void drawHeaderView() {
         headerView = view.findViewById(R.id.header_view);
 
@@ -374,6 +370,46 @@ public final class CalendarView extends LinearLayout {
                 .setOnTitleClickListener(this::onTitleClick)
                 .setOnNextButtonClickListener(this::onNextButtonClick)
                 .setOnBackButtonClickListener(this::onBackButtonClick);
+    }
+
+    //Function to draw the SUN, MON, TUE section
+    private void drawWeekView() {
+        final List<String> shortWeekDays = CalendarUtils.getShortWeekDays(getLocale());
+        final View v = view.findViewById(R.id.week_layout);
+
+        v.setBackgroundColor(weekBackgroundColor);
+
+        TextView textView;
+        String day;
+
+        for (int i = 1; i < shortWeekDays.size(); i++) {
+            day = shortWeekDays.get(i);
+            day = day.substring(0, day.length() < 3 ? day.length() : 3).toUpperCase();
+
+            textView = v.findViewWithTag(getContext().getString(R.string.day_of_week) + CalendarUtils.calculateWeekIndex(calendar, i));
+            textView.setText(day);
+
+            isCommonDay = true;
+
+            if (!specialDayOfWeek.isEmpty()) {
+                for (SpecialDayOfWeek specialDayOfWeek : specialDayOfWeek) {
+                    for (int specialDay : specialDayOfWeek.getSpecialDays()) {
+                        if (i == specialDay) {
+                            textView.setTextColor(ContextCompat.getColor(getContext(), specialDayOfWeek.getColor()));
+                            isCommonDay = false;
+                        }
+                    }
+                }
+            }
+
+            if (isCommonDay) {
+                textView.setTextColor(dayOfWeekTextColor);
+            }
+
+            if (null != typeface) {
+                textView.setTypeface(typeface);
+            }
+        }
     }
 
     public void onTitleClick() {
@@ -409,54 +445,6 @@ public final class CalendarView extends LinearLayout {
 
         if (onMonthChangeListener != null) {
             onMonthChangeListener.onMonthChange(calendar.getTime());
-        }
-    }
-
-    private void drawWeekView() {
-        final List<String> shortWeekDays = CalendarUtils.getShortWeekDays(getLocale());
-        final View v = view.findViewById(R.id.week_layout);
-
-        v.setBackgroundColor(weekBackgroundColor);
-
-        TextView textView;
-        String day;
-
-        for (int i = 1; i < shortWeekDays.size(); i++) {
-            day = shortWeekDays.get(i);
-            day = day.substring(0, day.length() < 3 ? day.length() : 3).toUpperCase();
-
-            textView = (TextView) v.findViewWithTag(getContext().getString(R.string.day_of_week) + CalendarUtils.calculateWeekIndex(calendar, i));
-            textView.setText(day);
-
-            isCommonDay = true;
-
-            if (totalDayOfWeekend.length != 0) {
-                for (int weekend : totalDayOfWeekend) {
-                    if (i == weekend) {
-                        textView.setTextColor(dayOfWeekTextColor);
-                        isCommonDay = false;
-                    }
-                }
-            }
-
-            if (!specialDayOfWeek.isEmpty()) {
-                for (SpecialDayOfWeek specialDayOfWeek : specialDayOfWeek) {
-                    for (int specialDay : specialDayOfWeek.getSpecialDays()) {
-                        if (i == specialDay) {
-                            textView.setTextColor(ContextCompat.getColor(getContext(), specialDayOfWeek.getColor()));
-                            isCommonDay = false;
-                        }
-                    }
-                }
-            }
-
-            if (isCommonDay) {
-                textView.setTextColor(dayOfWeekTextColor);
-            }
-
-            if (null != typeface) {
-                textView.setTypeface(typeface);
-            }
         }
     }
 
@@ -613,17 +601,6 @@ public final class CalendarView extends LinearLayout {
 
                 isCommonDay = true;
 
-                if (totalDayOfWeekend.length != 0) {
-                    final Calendar calendar = day.toCalendar(getLocale());
-
-                    for (int weekend : totalDayOfWeekend) {
-                        if (weekend == calendar.get(Calendar.DAY_OF_WEEK)) {
-                            textView.setTextColor(weekendTextColor);
-                            isCommonDay = false;
-                        }
-                    }
-                }
-
                 if (!specialDayOfWeek.isEmpty()) {
                     final Calendar calendar = day.toCalendar(getLocale());
 
@@ -700,15 +677,6 @@ public final class CalendarView extends LinearLayout {
             DayView dayView = findViewByCalendar(calendar);
             dayView.setBackgroundColor(calendarBackgroundColor);
             isCommonDay = !CalendarUtils.isToday(calendar);
-
-            if (totalDayOfWeekend.length != 0) {
-                for (int weekend : totalDayOfWeekend) {
-                    if (weekend == calendar.get(Calendar.DAY_OF_WEEK)) {
-                        dayView.setTextColor(weekendTextColor);
-                        isCommonDay = false;
-                    }
-                }
-            }
 
             if (!specialDayOfWeek.isEmpty()) {
                 for (SpecialDayOfWeek specialDay : specialDayOfWeek) {
@@ -1443,22 +1411,6 @@ public final class CalendarView extends LinearLayout {
 
     public CalendarView setCurrentDayTextColor(int currentDayTextColor) {
         this.currentDayTextColor = currentDayTextColor;
-        invalidate();
-        return this;
-    }
-
-    public CalendarView setWeekendTextColor(int weekendTextColor) {
-        this.weekendTextColor = weekendTextColor;
-        invalidate();
-        return this;
-    }
-
-    /**
-     * @deprecated use setSpecialDaysOfWeek() instead to set the color of your weekend!
-     */
-    @Deprecated
-    public CalendarView setWeekendDays(int weekendDays) {
-        this.weekendDays = weekendDays;
         invalidate();
         return this;
     }

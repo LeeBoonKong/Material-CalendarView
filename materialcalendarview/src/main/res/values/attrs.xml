@@ -16,18 +16,8 @@
         <attr name="calendarDayOfMonthTextColor" format="color" />
         <attr name="calendarDisabledDayTextColor" format="color" />
         <attr name="calendarSelectedDayTextColor" format="color" />
-        <attr name="calendarWeekendTextColor" format="color"/>
         <attr name="calendarCurrentDayTextColor" format="color" />
         <attr name="calendarIsOverflowDatesVisible" format="boolean"/>
         <attr name="calendarIsMultiSelectDayEnabled" format="boolean"/>
-        <attr name="calendarWeekendDays">
-            <flag name="sunday" value="1"/>
-            <flag name="monday" value="2"/>
-            <flag name="tuesday" value="4"/>
-            <flag name="wednesday" value="8"/>
-            <flag name="thursday" value="16"/>
-            <flag name="friday" value="32"/>
-            <flag name="saturday" value="64"/>
-        </attr>
     </declare-styleable>
 </resources>

@@ -57,9 +57,7 @@
                         app:calendarSelectedDayTextColor="@color/white"
                         app:calendarTitleBackgroundColor="@color/colorPrimary"
                         app:calendarTitleTextColor="@color/colorAccent"
-                        app:calendarWeekBackgroundColor="@color/colorPrimary"
-                        app:calendarWeekendDays="saturday|sunday"
-                        app:calendarWeekendTextColor="@color/red"></com.leeboonkong.materialcalendarview.view.CalendarView>
+                        app:calendarWeekBackgroundColor="@color/colorPrimary"></com.leeboonkong.materialcalendarview.view.CalendarView>
 
                 </FrameLayout>
 
