@@ -9,6 +9,7 @@ import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -73,6 +74,15 @@ public final class CalendarUtils {
                 && (cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR))
                 && (cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH))
                 && (cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR)));
+    }
+
+    public static boolean isSameDay(@NonNull Date date1, @NonNull Date date2) {
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        cal1.setTime(date1);
+        cal2.setTime(date2);
+        return cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) &&
+                cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
     }
 
     public static List<String> getShortWeekDays(Locale locale) {

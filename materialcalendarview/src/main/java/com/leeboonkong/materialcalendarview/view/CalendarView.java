@@ -57,6 +57,7 @@ import static com.leeboonkong.materialcalendarview.internal.utils.ScreenUtils.ge
  *
  * @author jonatan.salas
  */
+//TODO New Feature: Feature to highlight special individual dates
 public final class CalendarView extends LinearLayout {
     private static final Interpolator DEFAULT_ANIM_INTERPOLATOR = new DecelerateInterpolator(3.0f);
     private static final long DEFAULT_ANIM_DURATION = 1500;
@@ -203,7 +204,7 @@ public final class CalendarView extends LinearLayout {
     private int currentMonthIndex;
     private Map<Integer, List<Date>> selectedDatesForMonth = new HashMap<>();
 
-    private ArrayList<SpecialDayOfWeek> specialDayOfWeek = new ArrayList<>();
+    private ArrayList<SpecialDayOfWeek> specialDaysOfWeek = new ArrayList<>();
 
     // true for ordinary day, false for a weekendDays.
     private boolean isCommonDay;
@@ -390,8 +391,8 @@ public final class CalendarView extends LinearLayout {
 
             isCommonDay = true;
 
-            if (!specialDayOfWeek.isEmpty()) {
-                for (SpecialDayOfWeek specialDayOfWeek : specialDayOfWeek) {
+            if (!specialDaysOfWeek.isEmpty()) {
+                for (SpecialDayOfWeek specialDayOfWeek : specialDaysOfWeek) {
                     for (int specialDay : specialDayOfWeek.getSpecialDays()) {
                         if (i == specialDay) {
                             textView.setTextColor(ContextCompat.getColor(getContext(), specialDayOfWeek.getColor()));
@@ -600,10 +601,10 @@ public final class CalendarView extends LinearLayout {
 
                 isCommonDay = true;
 
-                if (!specialDayOfWeek.isEmpty()) {
+                if (!specialDaysOfWeek.isEmpty()) {
                     final Calendar calendar = day.toCalendar(getLocale());
 
-                    for (SpecialDayOfWeek specialDay : specialDayOfWeek) {
+                    for (SpecialDayOfWeek specialDay : specialDaysOfWeek) {
                         if (specialDay.isHighlightDays()) {
                             for (int singleCalendarDay : specialDay.getSpecialDays()) {
                                 if (singleCalendarDay == calendar.get(Calendar.DAY_OF_WEEK)) {
@@ -677,8 +678,8 @@ public final class CalendarView extends LinearLayout {
             dayView.setBackgroundColor(calendarBackgroundColor);
             isCommonDay = !CalendarUtils.isToday(calendar);
 
-            if (!specialDayOfWeek.isEmpty()) {
-                for (SpecialDayOfWeek specialDay : specialDayOfWeek) {
+            if (!specialDaysOfWeek.isEmpty()) {
+                for (SpecialDayOfWeek specialDay : specialDaysOfWeek) {
                     if (specialDay.isHighlightDays()) {
                         for (int singleCalendarDay : specialDay.getSpecialDays()) {
                             if (singleCalendarDay == calendar.get(Calendar.DAY_OF_WEEK)) {
@@ -736,10 +737,6 @@ public final class CalendarView extends LinearLayout {
         drawHeaderView();
         drawWeekView();
         drawAdapterView();
-    }
-
-    private boolean containsFlag(int flagSet, int flag) {
-        return (flagSet | flag) == flagSet;
     }
 
     private void drawCurrentDay(@NonNull Date date) {
@@ -847,8 +844,8 @@ public final class CalendarView extends LinearLayout {
                         boolean isDayDisabled = false;
                         //If the date is larger than min date, make sure it is not disabled dates
                         for (Date d : disabledDates) {
-                            if (isSameDay(c.getTime(), d)) {
-                                //If today is found in the list means today is disabled
+                            if (CalendarUtils.isSameDay(c.getTime(), d)) {
+                                //If today is found in the list means the selected day is disabled
                                 isDayDisabled = true;
                                 break;
                             }
@@ -868,8 +865,8 @@ public final class CalendarView extends LinearLayout {
                     boolean isDayDisabled = false;
                     //If min date does not exist, make sure it is not disabled dates
                     for (Date d : disabledDates) {
-                        if (isSameDay(c.getTime(), d)) {
-                            //If today is found in the list means the today is disabled
+                        if (CalendarUtils.isSameDay(c.getTime(), d)) {
+                            //If today is found in the list means the selected day is disabled
                             isDayDisabled = true;
                             break;
                         }
@@ -885,9 +882,9 @@ public final class CalendarView extends LinearLayout {
                 }
             }
         } else {
-            //Since markDateAsSelected will call cleardayviewselection
-            //Set the current day color
-            drawCurrentDay(c.getTime());
+            //Do nothing
+            //TODO remove soon
+//            drawCurrentDay(c.getTime());
         }
     }
 
@@ -1415,15 +1412,15 @@ public final class CalendarView extends LinearLayout {
     }
 
     public CalendarView setSpecialDaysOfWeek(ArrayList<SpecialDayOfWeek> specialDays) {
-        this.specialDayOfWeek.clear();
-        this.specialDayOfWeek.addAll(specialDays);
+        this.specialDaysOfWeek.clear();
+        this.specialDaysOfWeek.addAll(specialDays);
         invalidate();
         return this;
     }
 
     public CalendarView setSpecialDaysOfWeek(SpecialDayOfWeek specialDays) {
-        this.specialDayOfWeek.clear();
-        this.specialDayOfWeek.add(specialDays);
+        this.specialDaysOfWeek.clear();
+        this.specialDaysOfWeek.add(specialDays);
         invalidate();
         return this;
     }
@@ -1486,15 +1483,6 @@ public final class CalendarView extends LinearLayout {
     }
 
     //Private methods
-    private boolean isSameDay(Date date1, Date date2) {
-        Calendar cal1 = Calendar.getInstance();
-        Calendar cal2 = Calendar.getInstance();
-        cal1.setTime(date1);
-        cal2.setTime(date2);
-        return cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) &&
-                cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
-    }
-
     private Locale getLocale() {
         if (locale != null) {
             return locale;

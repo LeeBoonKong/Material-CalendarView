@@ -114,6 +114,7 @@ public final class MainActivity extends AppCompatActivity implements MainView {
                 .setOnMonthTitleClickListener(this::onMonthTitleClick)
                 .setSpecialDaysOfWeek(specialDayOfWeeks)
                 .setLocale(new Locale("en"))
+                .setIsOverflowDateVisible(false)
                 .setMinDate(new Date());
 
         calendarView.setDisabledDates(getDisabledDates());
@@ -183,8 +184,8 @@ public final class MainActivity extends AppCompatActivity implements MainView {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
         try {
-            disabledDates.add(sdf.parse("20-05-2019"));
-            disabledDates.add(sdf.parse("25-05-2019"));
+            disabledDates.add(sdf.parse("25-07-2019"));
+            disabledDates.add(sdf.parse("28-07-2019"));
         } catch (ParseException e) {
             e.printStackTrace();
         }
