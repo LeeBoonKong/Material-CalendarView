@@ -57,7 +57,7 @@ import static com.leeboonkong.materialcalendarview.internal.utils.ScreenUtils.ge
  *
  * @author jonatan.salas
  */
-//TODO New Feature: Feature to highlight special individual dates
+//TODO Add New Feature: Feature to highlight special individual dates
 public final class CalendarView extends LinearLayout {
     private static final Interpolator DEFAULT_ANIM_INTERPOLATOR = new DecelerateInterpolator(3.0f);
     private static final long DEFAULT_ANIM_DURATION = 1500;
@@ -112,9 +112,9 @@ public final class CalendarView extends LinearLayout {
     int SCROLL_STATE_SETTLING = 2;
 
     boolean USE_CACHE = false;
-    int MIN_DISTANCE_FOR_FLING = 25; // dips
+    int MIN_DISTANCE_FOR_FLING = 18; // dips
     int DEFAULT_GUTTER_SIZE = 16; // dips
-    int MIN_FLING_VELOCITY = 400; // dips
+    int MIN_FLING_VELOCITY = 270; // dips
 
     /**
      * Sentinel value for no current active pointer.
