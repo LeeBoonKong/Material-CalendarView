@@ -66,35 +66,6 @@ public final class CalendarView extends LinearLayout {
     private static final String KEY_MONTH_INDEX = "currentMonthIndex";
     private static final String KEY_SELECTED_DATE = "selectedDate";
 
-
-    private static final int SUNDAY = 1;
-    private static final int MONDAY = 2;
-    private static final int TUESDAY = 4;
-    private static final int WEDNESDAY = 8;
-    private static final int THURSDAY = 16;
-    private static final int FRIDAY = 32;
-    private static final int SATURDAY = 64;
-
-    private static final int[] FLAGS = new int[]{
-            SUNDAY,
-            MONDAY,
-            TUESDAY,
-            WEDNESDAY,
-            THURSDAY,
-            FRIDAY,
-            SATURDAY
-    };
-
-    private static final int[] WEEK_DAYS = new int[]{
-            Calendar.SUNDAY,
-            Calendar.MONDAY,
-            Calendar.TUESDAY,
-            Calendar.WEDNESDAY,
-            Calendar.THURSDAY,
-            Calendar.FRIDAY,
-            Calendar.SATURDAY
-    };
-
     /**
      * Indicates that the CalendarView is in an idle, settled state. The current page
      * is fully in view and no animation is in progress.
